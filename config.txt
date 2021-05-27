@@ -1,0 +1,59 @@
+/* ******************************************************
+ * CONFIG FILE INSTRUCTIONS
+ *
+ * 1. gameSetting = value
+ * 2. gameSettings can't have spaces in their names
+ * 3. values can't have spaces in their names
+ * 4. values can't have trailing whitespace
+ * 5. don't leave any blank lines
+***********************************************************/
+// music
+soundtrackFile = sounds/soundtrack.wav
+// change this to 1 turn on or off fullscreen, and 0 for off
+fullscreen = 0
+// player sprites
+playerSprite = images/playersprites.bmp
+// the sound played when the player is injured
+playerHurtSound = sounds/healthdown.wav
+// bullet sprites
+laser00 = images/bullets/laser00.bmp
+laser01 = images/bullets/laser01.bmp
+laser02 = images/bullets/laser02.bmp
+laser03 = images/bullets/laser03.bmp
+laser04 = images/bullets/laser04.bmp
+laser05 = images/bullets/laser05.bmp
+laser06 = images/bullets/laser06.bmp
+laser07 = images/bullets/laser07.bmp
+flame00 = images/bullets/flame00.bmp
+flame01 = images/bullets/flame01.bmp
+flame02 = images/bullets/flame02.bmp
+flame03 = images/bullets/flame03.bmp
+flame04 = images/bullets/flame04.bmp
+flame05 = images/bullets/flame05.bmp
+flame06 = images/bullets/flame06.bmp
+flame07 = images/bullets/flame07.bmp
+bazooka00 = images/bullets/bazooka00.bmp
+bazooka01 = images/bullets/bazooka01.bmp
+bazooka02 = images/bullets/bazooka02.bmp
+bazooka03 = images/bullets/bazooka03.bmp
+bazooka04 = images/bullets/bazooka04.bmp
+bazooka05 = images/bullets/bazooka05.bmp
+bazooka06 = images/bullets/bazooka06.bmp
+bazooka07 = images/bullets/bazooka07.bmp
+// bullet sounds
+laserSoundFile = sounds/laser.wav
+flameSoundFile = sounds/flame.wav
+bazookaSoundFile = sounds/bazooka.wav
+impactSoundFile = sounds/blip.wav
+// enemy sprites
+bossSprite = images/bosssprite.bmp
+centipedeSprite = images/bluecentipedesprite.bmp
+crawlerSprite = images/crawlersprite.bmp
+// powerup sprites
+healthPowerup = images/powerup_health.bmp
+flameAmmoFile = images/powerup_flameammo.bmp
+bazookaAmmoFile = images/powerup_bazookaammo.bmp
+// powerup sound effect
+powerupSoundFile = sounds/powerup.wav
+// level map
+map = levels/level01.fmp
