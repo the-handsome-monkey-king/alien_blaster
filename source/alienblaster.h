@@ -71,12 +71,12 @@ class AlienBlaster {
     AlienBlaster(Config *config);
     ~AlienBlaster();
 
-    void runWrapper(std::string mapFile, std::string playerSprite, std::string playerHurtSoundFile,
+    void runWrapper(std::string playerSprite, std::string playerHurtSoundFile,
       std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
       std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
       std::string soundtrackFile);
       
-    void run(std::string mapFile, std::string playerSprite, std::string playerHurtSoundFile,
+    void run(std::string playerSprite, std::string playerHurtSoundFile,
       std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
       std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
       std::string soundtrackFile);

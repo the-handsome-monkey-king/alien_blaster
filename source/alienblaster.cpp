@@ -18,6 +18,49 @@
 #include "alienblaster.h"
 
 
+/********************************************
+*
+* CONSTRUCTOR
+*
+********************************************/
+
+// initialize allegro & set configs
+AlienBlaster::AlienBlaster(Config *config) {
+  // set configs
+  this->config = config;
+  
+  // defaults to 0
+  int fullscreenMode = atoi(config->getOption("fullscreen").c_str());
+
+  // initialize allegro
+  allegro_init();
+  
+  // confiure graphics
+  set_color_depth(16);
+  if(fullscreenMode == 1) {
+    set_gfx_mode(FULL, WIDTH, HEIGHT, 0, 0);
+  } else {
+    set_gfx_mode(WINDOW, WIDTH, HEIGHT, 0, 0);
+  }
+
+  // configure music mode required drivers
+  // install allegro audio drivers without midi
+  if(install_sound(DIGI_AUTODETECT, MIDI_NONE, NULL) != 0) {
+    allegro_message("%s", "Error initializing the sound system.");
+    exit(1);
+  }
+  
+  // controllers and timer
+  install_keyboard();
+  install_timer();
+  srand(time(NULL));
+}
+
+AlienBlaster::~AlienBlaster() {
+  // shutdown allegro
+  remove_sound();
+	allegro_exit();
+}
 
 
 /********************************************
@@ -941,49 +984,6 @@ void resolvePowerupCollision(playersprite *player,
 	}
 }
 
-/********************************************
-*
-* CONSTRUCTOR
-*
-********************************************/
-
-// initialize allegro & set configs
-AlienBlaster::AlienBlaster(Config *config) {
-  // set configs
-  this->config = config;
-  
-  // defaults to 0
-  int fullscreenMode = atoi(config->getOption("fullscreen").c_str());
-
-  // initialize allegro
-  allegro_init();
-  
-  // confiure graphics
-  set_color_depth(16);
-  if(fullscreenMode == 1) {
-    set_gfx_mode(FULL, WIDTH, HEIGHT, 0, 0);
-  } else {
-    set_gfx_mode(WINDOW, WIDTH, HEIGHT, 0, 0);
-  }
-
-  // configure music mode required drivers
-  // install allegro audio drivers without midi
-  if(install_sound(DIGI_AUTODETECT, MIDI_NONE, NULL) != 0) {
-    allegro_message("%s", "Error initializing the sound system.");
-    exit(1);
-  }
-  
-  // controllers and timer
-  install_keyboard();
-  install_timer();
-  srand(time(NULL));
-}
-
-AlienBlaster::~AlienBlaster() {
-  // shutdown allegro
-  remove_sound();
-	allegro_exit();
-}
 
 					
 
@@ -994,7 +994,8 @@ AlienBlaster::~AlienBlaster() {
 ****************************************/
 
 // temp wrapper to encapsulate controls within game
-void AlienBlaster::runWrapper(std::string mapFile, std::string playerSprite, std::string playerHurtSoundFile,
+// and to buffer changes made to run()
+void AlienBlaster::runWrapper(std::string playerSprite, std::string playerHurtSoundFile,
       std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
       std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
       std::string soundtrackFile)
@@ -1002,12 +1003,12 @@ void AlienBlaster::runWrapper(std::string mapFile, std::string playerSprite, std
 {
   while(!key[KEY_ESC]) 
 	{
-		run(mapFile, playerSprite, playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
+		run(playerSprite, playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
 			bulletsConfig, powerupsConfig, soundtrackFile);
 	}
 }
 
-void AlienBlaster::run(string mapFile, string playerSprite, string playerHurtSoundFile,
+void AlienBlaster::run(string playerSprite, string playerHurtSoundFile,
 	string crawlerSprite, string centipedeSprite, string bossSprite,
 	vector<string> *bulletsConfig, vector<string> *powerupsConfig,
 	string soundtrackFile)
@@ -1065,7 +1066,8 @@ void AlienBlaster::run(string mapFile, string playerSprite, string playerHurtSou
 	unsigned int i;
 	
 	// load the mappy game map
-	MapLoad((char*)mapFile.c_str());
+  
+	MapLoad((char*)this->config->getOption("map").c_str());
 	
 	// map scroll coordinates
 	int mapHeight = mapheight * mapblockheight;

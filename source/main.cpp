@@ -199,11 +199,6 @@ int main() {
 			else if(name == "powerupSoundFile")
 				powerupSoundFile = value;
 			
-			else if(name == "map")
-				mapFile = value;
-			
-			
-
 		}
 	}
 	
@@ -249,7 +244,7 @@ int main() {
 	
 	AlienBlaster game = AlienBlaster(&config);
 	
-	game.runWrapper(mapFile, playerSprite, playerHurtSound, crawlerSprite, centipedeSprite, bossSprite,
+	game.runWrapper(playerSprite, playerHurtSound, crawlerSprite, centipedeSprite, bossSprite,
 		bulletsPointer, powerupsPointer, soundtrackFile);
 
 	return 0;
