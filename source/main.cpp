@@ -18,6 +18,9 @@
 #include <allegro.h>
 #include <fstream>
 #include <iostream>
+#include <map>
+#include <string>
+#include "config.h"
 #include "alienblaster.h"
 
 
@@ -30,6 +33,10 @@
 // some colours
 #define WHITE makecol(255,255,255)
 
+// config file location
+std::string const config_url = "config.txt";
+
+
 int main() {
 	
 	
@@ -38,10 +45,6 @@ int main() {
 	* INITIALIZE ALLEGRO & CONFIG SETTINGS
 	*
 	***************************************/
-	allegro_init();
-
-	// game config settings
-	int fullscreenMode = 0;
 	
 	// soundtrack midi
 	string soundtrackFile = "";
@@ -68,7 +71,10 @@ int main() {
 	// mappy level map
 	string mapFile;
 	
-	// load configuration file
+	// load configuration file (Config class)
+  Config config(config_url);
+
+  // load configuation file (legacy)
 	ifstream configFile("config.txt");
 	
 	// parse each configuration setting
@@ -76,15 +82,10 @@ int main() {
 		for(string text; getline(configFile, text); ) {
 			
 			int position = text.find(" = ");
-			string name = text.substr(0, position);
-			string value = text.substr(position+3);
+      std::string name = text.substr(0, position);
+      std::string value = text.substr(position+3);
 			
-			
-			// process each config setting
-			if(name == "fullscreen")
-				fullscreenMode = atoi(value.c_str());
-			
-			else if(name == "soundtrackFile")
+			if(name == "soundtrackFile")
 				soundtrackFile = value;
 			
 			else if(name == "playerSprite")
@@ -246,37 +247,11 @@ int main() {
 	powerups.push_back(powerupSoundFile);
 	vector<string> *powerupsPointer = &powerups;
 	
+	AlienBlaster game = AlienBlaster(&config);
 	
-	// confiure graphics
-	set_color_depth(16);
-	if(fullscreenMode == 1) {
-		set_gfx_mode(FULL, WIDTH, HEIGHT, 0, 0);
-	} else {
-		set_gfx_mode(WINDOW, WIDTH, HEIGHT, 0, 0);
-	}
-	
-	// configure music mode required drivers
-	// install allegro audio drivers without midi
-	if(install_sound(DIGI_AUTODETECT, MIDI_NONE, NULL) != 0) {
-		allegro_message("%s", "Error initializing the sound system.");
-		exit(1);
-	}
-	
-	// controllers and timer
-	install_keyboard();
-	install_timer();
-	srand(time(NULL));
-	
-	// ensure a whole new game instance is run each time
-	while(!key[KEY_ESC]) 
-	{
-		run(mapFile, playerSprite, playerHurtSound, crawlerSprite, centipedeSprite, bossSprite,
-			bulletsPointer, powerupsPointer, soundtrackFile);
-	}
-	
-	// shutdown allegro
-	remove_sound();
-	allegro_exit();
+	game.runWrapper(mapFile, playerSprite, playerHurtSound, crawlerSprite, centipedeSprite, bossSprite,
+		bulletsPointer, powerupsPointer, soundtrackFile);
+
 	return 0;
 }
 END_OF_MAIN()

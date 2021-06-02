@@ -5,7 +5,7 @@
  * @date May 27, 2018
  * @version 1.0
  *
- * @purpose The header file for the Alien Blaster engine
+ * @purpose A class to encapsulate the main execution loop for Alien Blaster.
  *
  * *** Compile Instructions (Linux) ***
  * 1) make
@@ -18,6 +18,7 @@
  
 #include <allegro.h>
 #include <string>
+#include "config.h"
 #include "sprite.h"
 #include "bulletsprite.h"
 #include "bullethandler.h"
@@ -29,6 +30,12 @@
 #include "powerup.h"
 #include "grabframe.h"
 #include "poweruphandler.h"
+
+// window settings
+#define WIDTH 640
+#define HEIGHT 480
+#define WINDOW GFX_AUTODETECT_WINDOWED
+#define FULL GFX_AUTODETECT_FULLSCREEN
 
 using namespace std;
 
@@ -56,6 +63,24 @@ using namespace std;
 #define BOSS_Y4 300
 #define BOSS_TIME 3000
 
+
+class AlienBlaster {
+  private:
+    Config *config;
+  public:
+    AlienBlaster(Config *config);
+    ~AlienBlaster();
+
+    void runWrapper(std::string mapFile, std::string playerSprite, std::string playerHurtSoundFile,
+      std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
+      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
+      std::string soundtrackFile);
+      
+    void run(std::string mapFile, std::string playerSprite, std::string playerHurtSoundFile,
+      std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
+      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
+      std::string soundtrackFile);
+};
 
 /********************************************
 *
@@ -184,16 +209,5 @@ void spawnRandomPowerup(poweruphandler *powerups, int mapyoffset);
 
 void resolvePowerupCollision(playersprite *player,
 	vector<powerup*> *powerups);
-
-/**************************************
-*
-* RUN THE GAME
-*
-****************************************/
-
-void run(string mapFile, string playerSprite, string playerHurtSoundFile,
-	string crawlerSprite, string centipedeSprite, string bossSprite,
-	vector<string> *bulletsConfig, vector<string> *powerupsConfig,
-	string soundtrackFile);
 
 #endif

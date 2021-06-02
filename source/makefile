@@ -14,7 +14,7 @@
 #
 # make clean: remove all object files
 
-OBJECTS = mappyal.o sprite.o playersprite.o bulletsprite.o bullethandler.o crawlersprite.o centipede.o boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o main.o 
+OBJECTS = config.o mappyal.o sprite.o playersprite.o bulletsprite.o bullethandler.o crawlersprite.o centipede.o boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o main.o 
 FLAGS = -Wall -lalleg 
 NOMAPPYWARNFLAGS = -Wno-pointer-to-int-cast -Wno-unused-but-set-variable -Wno-deprecated-declarations -Wno-pointer-sign -Wno-int-conversion -Wno-parentheses
 .SUFFIXES: .cpp .o
@@ -30,6 +30,9 @@ nomappywarnings: $(OBJECTS) $(NOMAPPYWARNFLAGS)
 # With time, these warnings could be fixed by hand
 mappyal.o: mappyal.c
 	gcc mappyal.c -O2 -Wall -c -o mappyal.o $(NOMAPPYWARNFLAGS)
+
+config.o: config.cpp
+	g++ -c -o config.o config.cpp -Wall
 	
 sprite.o: sprite.cpp sprite.h
 	g++ -c -o sprite.o sprite.cpp -lalleg -Wall
@@ -64,7 +67,7 @@ grabframe.o: grabframe.cpp grabframe.h
 poweruphandler.o: poweruphandler.cpp poweruphandler.h
 	g++ -c -o poweruphandler.o poweruphandler.cpp -lalleg -Wall
 	
-main.o: sprite.o playersprite.o bulletsprite.o bullethandler.o crawlersprite.o centipede.o mappyal.o boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o
+main.o: config.o sprite.o playersprite.o bulletsprite.o bullethandler.o crawlersprite.o centipede.o mappyal.o boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o
 
 clean:
 	\rm -f *.o
