@@ -996,18 +996,18 @@ void resolvePowerupCollision(playersprite *player,
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
 void AlienBlaster::runWrapper(std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
-      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig)
+      std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
 		run(crawlerSprite, centipedeSprite, bossSprite,
-			bulletsConfig, powerupsConfig);
+			powerupsConfig);
 	}
 }
 
 void AlienBlaster::run(string crawlerSprite, string centipedeSprite, string bossSprite,
-	vector<string> *bulletsConfig, vector<string> *powerupsConfig)
+	vector<string> *powerupsConfig)
 {
 	
 	// INITIATE GAME RESOURCES
@@ -1094,26 +1094,43 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite, string boss
 	bool moved;
 	int scroll;
 	
-	
 	// bullethandler, pointer, and maxBullets
 	bullethandler bullets(
 		// laser sprite images
-		bulletsConfig->at(0), bulletsConfig->at(1), bulletsConfig->at(2), 
-		bulletsConfig->at(3), bulletsConfig->at(4), bulletsConfig->at(5), 
-		bulletsConfig->at(6), bulletsConfig->at(7),
+    this->config->getOption("laser00"),
+    this->config->getOption("laser01"),
+    this->config->getOption("laser02"),
+    this->config->getOption("laser03"),
+    this->config->getOption("laser04"),
+    this->config->getOption("laser05"),
+    this->config->getOption("laser06"),
+    this->config->getOption("laser07"),
 		// flame sprite images
-		bulletsConfig->at(8), bulletsConfig->at(9), bulletsConfig->at(10), 
-		bulletsConfig->at(11), bulletsConfig->at(12), bulletsConfig->at(13), 
-		bulletsConfig->at(14), bulletsConfig->at(15),
+    this->config->getOption("flame00"),
+    this->config->getOption("flame01"),
+    this->config->getOption("flame02"),
+    this->config->getOption("flame03"),
+    this->config->getOption("flame04"),
+    this->config->getOption("flame05"),
+    this->config->getOption("flame06"),
+    this->config->getOption("flame07"),
 		// bazooka sprite images
-		bulletsConfig->at(16), bulletsConfig->at(17), bulletsConfig->at(18), 
-		bulletsConfig->at(19), bulletsConfig->at(20), bulletsConfig->at(21), 
-		bulletsConfig->at(22), bulletsConfig->at(23),
+    this->config->getOption("bazooka00"),
+    this->config->getOption("bazooka01"),
+    this->config->getOption("bazooka02"),
+    this->config->getOption("bazooka03"),
+    this->config->getOption("bazooka04"),
+    this->config->getOption("bazooka05"),
+    this->config->getOption("bazooka06"),
+    this->config->getOption("bazooka07"),
 		// xy offsets, leave 0
 		0, 0,
 		// bullet sounds
-		bulletsConfig->at(24), bulletsConfig->at(25), bulletsConfig->at(26), 
-		bulletsConfig->at(27));
+    this->config->getOption("laserSoundFile"),
+    this->config->getOption("flameSoundFile"),
+    this->config->getOption("bazookaSoundFile"),
+    this->config->getOption("impactSoundFile")
+  );
 	
 	bullethandler *bulletsPointer = &bullets;
 	unsigned int maxBullets = bullets.getMaxBullets();

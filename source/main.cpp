@@ -193,38 +193,6 @@ int main() {
 		}
 	}
 	
-	// pack the bullethandler config settings in a vector
-	vector<string> bulletsConfig;
-	bulletsConfig.push_back(laser00);
-	bulletsConfig.push_back(laser01);
-	bulletsConfig.push_back(laser02);
-	bulletsConfig.push_back(laser03);
-	bulletsConfig.push_back(laser04);
-	bulletsConfig.push_back(laser05);
-	bulletsConfig.push_back(laser06);
-	bulletsConfig.push_back(laser07);
-	bulletsConfig.push_back(flame00);
-	bulletsConfig.push_back(flame01);
-	bulletsConfig.push_back(flame02);
-	bulletsConfig.push_back(flame03);
-	bulletsConfig.push_back(flame04);
-	bulletsConfig.push_back(flame05);
-	bulletsConfig.push_back(flame06);
-	bulletsConfig.push_back(flame07);
-	bulletsConfig.push_back(bazooka00);
-	bulletsConfig.push_back(bazooka01);
-	bulletsConfig.push_back(bazooka02);
-	bulletsConfig.push_back(bazooka03);
-	bulletsConfig.push_back(bazooka04);
-	bulletsConfig.push_back(bazooka05);
-	bulletsConfig.push_back(bazooka06);
-	bulletsConfig.push_back(bazooka07);
-	bulletsConfig.push_back(laserSoundFile);
-	bulletsConfig.push_back(flameSoundFile);
-	bulletsConfig.push_back(bazookaSoundFile);
-	bulletsConfig.push_back(impactSoundFile);
-	vector<string> *bulletsPointer = &bulletsConfig;
-	
 	// pack the powerups config settings in a vector
 	vector<string> powerups;
 	powerups.push_back(healthFile);
@@ -236,7 +204,7 @@ int main() {
 	AlienBlaster game = AlienBlaster(&config);
 	
 	game.runWrapper(crawlerSprite, centipedeSprite, bossSprite,
-		bulletsPointer, powerupsPointer);
+		powerupsPointer);
 
 	return 0;
 }

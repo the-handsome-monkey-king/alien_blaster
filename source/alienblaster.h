@@ -72,10 +72,10 @@ class AlienBlaster {
     ~AlienBlaster();
 
     void runWrapper(std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
-      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig);
+      std::vector<string> *powerupsConfig);
       
     void run(std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
-      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig);
+      std::vector<string> *powerupsConfig);
 };
 
 /********************************************
