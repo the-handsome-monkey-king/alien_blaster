@@ -995,18 +995,18 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
+void AlienBlaster::runWrapper(std::string crawlerSprite, std::string centipedeSprite, 
       std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(crawlerSprite, centipedeSprite, bossSprite,
+		run(crawlerSprite, centipedeSprite, 
 			powerupsConfig);
 	}
 }
 
-void AlienBlaster::run(string crawlerSprite, string centipedeSprite, string bossSprite,
+void AlienBlaster::run(string crawlerSprite, string centipedeSprite, 
 	vector<string> *powerupsConfig)
 {
 	
@@ -1450,7 +1450,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite, string boss
 		
 		else if(!bossspawnpoint && (mapyoffset < 10))
 		{
-			spawnBoss(bossesPointer, bossSprite, playerPointer);
+			spawnBoss(bossesPointer, this->config->getOption("bossSprite"), playerPointer);
 			bossspawnpoint = true;
 		}
 		
