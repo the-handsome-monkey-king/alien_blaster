@@ -997,21 +997,19 @@ void resolvePowerupCollision(playersprite *player,
 // and to buffer changes made to run()
 void AlienBlaster::runWrapper(std::string playerSprite, std::string playerHurtSoundFile,
       std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
-      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig,
-      std::string soundtrackFile)
+      std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
 		run(playerSprite, playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
-			bulletsConfig, powerupsConfig, soundtrackFile);
+			bulletsConfig, powerupsConfig);
 	}
 }
 
 void AlienBlaster::run(string playerSprite, string playerHurtSoundFile,
 	string crawlerSprite, string centipedeSprite, string bossSprite,
-	vector<string> *bulletsConfig, vector<string> *powerupsConfig,
-	string soundtrackFile)
+	vector<string> *bulletsConfig, vector<string> *powerupsConfig)
 {
 	
 	// INITIATE GAME RESOURCES
@@ -1165,7 +1163,8 @@ void AlienBlaster::run(string playerSprite, string playerHurtSoundFile,
 	BITMAP *bazookaIcon = load_bitmap(powerupsConfig->at(2).c_str(), NULL);
 	
 	// get the soundtrack
-	SAMPLE *soundtrack = load_sample(soundtrackFile.c_str());
+	SAMPLE *soundtrack = load_sample(
+      this->config->getOption("soundtrackFile").c_str());
 	if(!soundtrack)
 	{
 		allegro_message("Couldn't load soundtrack");
