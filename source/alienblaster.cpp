@@ -995,16 +995,16 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::vector<string> *powerupsConfig)
+void AlienBlaster::runWrapper()
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(powerupsConfig);
+		run();
 	}
 }
 
-void AlienBlaster::run(vector<string> *powerupsConfig)
+void AlienBlaster::run()
 {
 	
 	// INITIATE GAME RESOURCES
@@ -1165,16 +1165,22 @@ void AlienBlaster::run(vector<string> *powerupsConfig)
 
 	
 	// powerups
-	poweruphandler powerups(powerupsConfig->at(0),
-		powerupsConfig->at(1), powerupsConfig->at(2), powerupsConfig->at(3));
+	poweruphandler powerups(
+      this->config->getOption("healthPowerup"),
+      this->config->getOption("flameAmmoFile"),
+      this->config->getOption("bazookaAmmoFile"),
+      this->config->getOption("powerupSoundFile"));
 	poweruphandler *powerupsPointer = &powerups;
 	
 
 	// Life and ammo gauge resources
 	BITMAP *gauge = load_bitmap("images/lifegauge.bmp", NULL);
-	BITMAP *healthIcon = load_bitmap(powerupsConfig->at(0).c_str(), NULL);
-	BITMAP *flameIcon = load_bitmap(powerupsConfig->at(1).c_str(), NULL);
-	BITMAP *bazookaIcon = load_bitmap(powerupsConfig->at(2).c_str(), NULL);
+	BITMAP *healthIcon = load_bitmap(
+      this->config->getOption("healthPowerup").c_str(), NULL);
+	BITMAP *flameIcon = load_bitmap(
+      this->config->getOption("flameAmmoFile").c_str(), NULL);
+	BITMAP *bazookaIcon = load_bitmap(
+      this->config->getOption("bazookaAmmoFile").c_str(), NULL);
 	
 	// get the soundtrack
 	SAMPLE *soundtrack = load_sample(

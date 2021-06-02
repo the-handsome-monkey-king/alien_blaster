@@ -71,9 +71,9 @@ class AlienBlaster {
     AlienBlaster(Config *config);
     ~AlienBlaster();
 
-    void runWrapper(std::vector<string> *powerupsConfig);
+    void runWrapper();
       
-    void run(std::vector<string> *powerupsConfig);
+    void run();
 };
 
 /********************************************

@@ -46,72 +46,12 @@ int main() {
 	*
 	***************************************/
 	
-	// soundtrack midi
-	string soundtrackFile = "";
-	
-	// player sprite
-	string playerSprite;
-	
-	// player hurt sound
-	string playerHurtSound;
-	
-	// enemy sprite images
-	string bossSprite, centipedeSprite, crawlerSprite;
-	
-	// weapon sprite images and sounds
-	string laser00, laser01, laser02, laser03, laser04, laser05, laser06, laser07;
-	string flame00, flame01, flame02, flame03, flame04, flame05, flame06, flame07;
-	string bazooka00, bazooka01, bazooka02, bazooka03, bazooka04, bazooka05, bazooka06, bazooka07;
-	string laserSoundFile, flameSoundFile, bazookaSoundFile, impactSoundFile;
-	
-	// powerup images and sounds
-	string healthFile, flameAmmoFile, bazookaAmmoFile;
-	string powerupSoundFile;
-	
-	// mappy level map
-	string mapFile;
-	
 	// load configuration file (Config class)
   Config config(config_url);
 
-  // load configuation file (legacy)
-	ifstream configFile("config.txt");
-	
-	// parse each configuration setting
-	if(configFile.is_open()) {
-		for(string text; getline(configFile, text); ) {
-			
-			int position = text.find(" = ");
-      std::string name = text.substr(0, position);
-      std::string value = text.substr(position+3);
-			
-			
-			if(name == "healthPowerup")
-				healthFile = value;
-			
-			else if(name == "flameAmmoFile")
-				flameAmmoFile = value;
-			
-			else if(name == "bazookaAmmoFile")
-				bazookaAmmoFile = value;
-			
-			else if(name == "powerupSoundFile")
-				powerupSoundFile = value;
-			
-		}
-	}
-	
-	// pack the powerups config settings in a vector
-	vector<string> powerups;
-	powerups.push_back(healthFile);
-	powerups.push_back(flameAmmoFile);
-	powerups.push_back(bazookaAmmoFile);
-	powerups.push_back(powerupSoundFile);
-	vector<string> *powerupsPointer = &powerups;
-	
 	AlienBlaster game = AlienBlaster(&config);
 	
-	game.runWrapper(powerupsPointer);
+	game.runWrapper();
 
 	return 0;
 }
