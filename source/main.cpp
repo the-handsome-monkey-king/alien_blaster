@@ -85,10 +85,7 @@ int main() {
       std::string name = text.substr(0, position);
       std::string value = text.substr(position+3);
 			
-			if(name == "playerHurtSound")
-				playerHurtSound = value;
-			
-			else if(name == "laser00")
+			if(name == "laser00")
 				laser00 = value;
 			
 			else if(name == "laser01")
@@ -238,7 +235,7 @@ int main() {
 	
 	AlienBlaster game = AlienBlaster(&config);
 	
-	game.runWrapper(playerHurtSound, crawlerSprite, centipedeSprite, bossSprite,
+	game.runWrapper(crawlerSprite, centipedeSprite, bossSprite,
 		bulletsPointer, powerupsPointer);
 
 	return 0;

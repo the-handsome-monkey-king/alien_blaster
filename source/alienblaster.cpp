@@ -995,20 +995,18 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::string playerHurtSoundFile,
-      std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
+void AlienBlaster::runWrapper(std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
       std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
+		run(crawlerSprite, centipedeSprite, bossSprite,
 			bulletsConfig, powerupsConfig);
 	}
 }
 
-void AlienBlaster::run(string playerHurtSoundFile,
-	string crawlerSprite, string centipedeSprite, string bossSprite,
+void AlienBlaster::run(string crawlerSprite, string centipedeSprite, string bossSprite,
 	vector<string> *bulletsConfig, vector<string> *powerupsConfig)
 {
 	
@@ -1083,7 +1081,8 @@ void AlienBlaster::run(string playerHurtSoundFile,
 	player.makeAlive();
 	
 	// load the player injury sound
-	SAMPLE* playerHurtSound = load_sample(playerHurtSoundFile.c_str());
+	SAMPLE* playerHurtSound = load_sample(
+      this->config->getOption("playerHurtSound").c_str());
 	if(!playerHurtSound)
 	{
 		allegro_message("Couldn't load playerHurtSound");
