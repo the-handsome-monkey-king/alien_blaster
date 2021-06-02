@@ -86,10 +86,7 @@ int main() {
       std::string value = text.substr(position+3);
 			
 			
-			if(name == "crawlerSprite")
-				crawlerSprite = value;
-			
-			else if(name == "healthPowerup")
+			if(name == "healthPowerup")
 				healthFile = value;
 			
 			else if(name == "flameAmmoFile")
@@ -114,7 +111,7 @@ int main() {
 	
 	AlienBlaster game = AlienBlaster(&config);
 	
-	game.runWrapper(crawlerSprite, powerupsPointer);
+	game.runWrapper(powerupsPointer);
 
 	return 0;
 }

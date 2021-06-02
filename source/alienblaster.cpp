@@ -995,18 +995,16 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::string crawlerSprite, 
-      std::vector<string> *powerupsConfig)
+void AlienBlaster::runWrapper(std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(crawlerSprite, powerupsConfig);
+		run(powerupsConfig);
 	}
 }
 
-void AlienBlaster::run(string crawlerSprite, 
-	vector<string> *powerupsConfig)
+void AlienBlaster::run(vector<string> *powerupsConfig)
 {
 	
 	// INITIATE GAME RESOURCES
@@ -1384,7 +1382,7 @@ void AlienBlaster::run(string crawlerSprite,
 		if(!spawnpoint01 && (mapyoffset <= BOTTOM - 50))
 		{
 			for(i=0; i<10; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			spawnFlame(powerupsPointer, mapyoffset);
 			spawnBazooka(powerupsPointer, mapyoffset);
@@ -1396,7 +1394,7 @@ void AlienBlaster::run(string crawlerSprite,
 		else if(!spawnpoint02 && (mapyoffset <= BOTTOM - 150))
 		{
 			for(i=0; i<10; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			for(i=0; i<3; i++)
 				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
@@ -1408,7 +1406,7 @@ void AlienBlaster::run(string crawlerSprite,
 		else if(!spawnpoint03 && (mapyoffset <= 5 * BOTTOM / 6))
 		{
 			for(i=0; i<20; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			spawnpoint03 = true;
 		}
@@ -1417,7 +1415,7 @@ void AlienBlaster::run(string crawlerSprite,
 		else if(!spawnpoint04 && (mapyoffset <= 4 * BOTTOM / 6))
 		{
 			for(i=0; i<20; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			for(i=0; i<3; i++)
 				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
@@ -1428,7 +1426,7 @@ void AlienBlaster::run(string crawlerSprite,
 		else if(!spawnpoint05 && (mapyoffset <= 3 * BOTTOM / 6))
 		{
 			for(i=0; i<20; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			for(i=0; i<6; i++)
 				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
@@ -1439,7 +1437,7 @@ void AlienBlaster::run(string crawlerSprite,
 		else if(!spawnpoint06 && (mapyoffset <= 2 * BOTTOM / 6))
 		{
 			for(i=0; i<10; i++)
-				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+				spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 			
 			for(i=0; i<3; i++)
 				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
@@ -1461,7 +1459,7 @@ void AlienBlaster::run(string crawlerSprite,
 			else if(bossTimer == 0)
 			{
 				for(i=0; i<10; i++)
-					spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
+					spawnCrawler(crawlersPointer, this->config->getOption("crawlerSprite"), playerPointer);
 				
 				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 				
