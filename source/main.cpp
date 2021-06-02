@@ -86,10 +86,7 @@ int main() {
       std::string value = text.substr(position+3);
 			
 			
-			if(name == "centipedeSprite")
-				centipedeSprite = value;
-			
-			else if(name == "crawlerSprite")
+			if(name == "crawlerSprite")
 				crawlerSprite = value;
 			
 			else if(name == "healthPowerup")
@@ -117,7 +114,7 @@ int main() {
 	
 	AlienBlaster game = AlienBlaster(&config);
 	
-	game.runWrapper(crawlerSprite, centipedeSprite, powerupsPointer);
+	game.runWrapper(crawlerSprite, powerupsPointer);
 
 	return 0;
 }

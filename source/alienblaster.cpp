@@ -995,18 +995,17 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::string crawlerSprite, std::string centipedeSprite, 
+void AlienBlaster::runWrapper(std::string crawlerSprite, 
       std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(crawlerSprite, centipedeSprite, 
-			powerupsConfig);
+		run(crawlerSprite, powerupsConfig);
 	}
 }
 
-void AlienBlaster::run(string crawlerSprite, string centipedeSprite, 
+void AlienBlaster::run(string crawlerSprite, 
 	vector<string> *powerupsConfig)
 {
 	
@@ -1400,7 +1399,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite,
 				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
 			
 			for(i=0; i<3; i++)
-				spawnCentipede(centipedesPointer, centipedeSprite, playerPointer);
+				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 			
 			spawnpoint02 = true;
 		}
@@ -1421,7 +1420,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite,
 				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
 			
 			for(i=0; i<3; i++)
-				spawnCentipede(centipedesPointer, centipedeSprite, playerPointer);
+				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 			
 			spawnpoint04 = true;
 		}
@@ -1432,7 +1431,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite,
 				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
 			
 			for(i=0; i<6; i++)
-				spawnCentipede(centipedesPointer, centipedeSprite, playerPointer);
+				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 			
 			spawnpoint05 = true;
 		}
@@ -1443,7 +1442,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite,
 				spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
 			
 			for(i=0; i<3; i++)
-				spawnCentipede(centipedesPointer, centipedeSprite, playerPointer);
+				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 			
 			spawnpoint06 = true;
 		}
@@ -1464,7 +1463,7 @@ void AlienBlaster::run(string crawlerSprite, string centipedeSprite,
 				for(i=0; i<10; i++)
 					spawnCrawler(crawlersPointer, crawlerSprite, playerPointer);
 				
-				spawnCentipede(centipedesPointer, centipedeSprite, playerPointer);
+				spawnCentipede(centipedesPointer, this->config->getOption("centipedeSprite"), playerPointer);
 				
 				bossTimer = BOSS_TIME;
 			}
