@@ -995,19 +995,19 @@ void resolvePowerupCollision(playersprite *player,
 
 // temp wrapper to encapsulate controls within game
 // and to buffer changes made to run()
-void AlienBlaster::runWrapper(std::string playerSprite, std::string playerHurtSoundFile,
+void AlienBlaster::runWrapper(std::string playerHurtSoundFile,
       std::string crawlerSprite, std::string centipedeSprite, std::string bossSprite,
       std::vector<string> *bulletsConfig, std::vector<string> *powerupsConfig)
       
 {
   while(!key[KEY_ESC]) 
 	{
-		run(playerSprite, playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
+		run(playerHurtSoundFile, crawlerSprite, centipedeSprite, bossSprite,
 			bulletsConfig, powerupsConfig);
 	}
 }
 
-void AlienBlaster::run(string playerSprite, string playerHurtSoundFile,
+void AlienBlaster::run(string playerHurtSoundFile,
 	string crawlerSprite, string centipedeSprite, string bossSprite,
 	vector<string> *bulletsConfig, vector<string> *powerupsConfig)
 {
@@ -1074,7 +1074,8 @@ void AlienBlaster::run(string playerSprite, string playerHurtSoundFile,
 	
 	
 	// initialize and place player
-	playersprite player(playerSprite.c_str(), 32, 32, 8);
+	playersprite player(
+      this->config->getOption("playerSprite").c_str(), 32, 32, 8);
 	playersprite *playerPointer = &player;
 	int x = SCREEN_W/2;
 	int y = SCREEN_H/2 +10;
