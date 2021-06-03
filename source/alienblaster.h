@@ -19,6 +19,7 @@
 #include <allegro.h>
 #include <string>
 #include "config.h"
+#include "allegrolayer.h"
 #include "sprite.h"
 #include "bulletsprite.h"
 #include "bullethandler.h"
@@ -67,6 +68,7 @@ using namespace std;
 class AlienBlaster {
   private:
     Config *config;
+    AllegroLayer allegro;
   public:
     AlienBlaster(Config *config);
     ~AlienBlaster();

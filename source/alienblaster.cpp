@@ -15,6 +15,7 @@
  
 #include <allegro.h>
 #include <string>
+#include <iostream>
 #include "alienblaster.h"
 
 
@@ -29,6 +30,10 @@ AlienBlaster::AlienBlaster(Config *config) {
   // set configs
   this->config = config;
   
+  // once enough allegro code is encapsulated, this can be
+  // implmented and tested
+  this->allegro = AllegroLayer(config, WIDTH, HEIGHT);
+
   // defaults to 0
   int fullscreenMode = atoi(config->getOption("fullscreen").c_str());
 
@@ -998,7 +1003,8 @@ void resolvePowerupCollision(playersprite *player,
 void AlienBlaster::runWrapper()
       
 {
-  while(!key[KEY_ESC]) 
+  while(allegro.keyESC() == false)
+  //while(!key[KEY_ESC]) 
 	{
 		run();
 	}

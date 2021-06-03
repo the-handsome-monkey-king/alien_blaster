@@ -8,7 +8,10 @@
 
 #include "allegrolayer.h"
 
+AllegroLayer::AllegroLayer() {}
+
 AllegroLayer::AllegroLayer(Config *config, const int screen_width, const int screen_height) {
+  /*
   // initalize allegro
   allegro_init();
 
@@ -34,6 +37,7 @@ AllegroLayer::AllegroLayer(Config *config, const int screen_width, const int scr
   install_keyboard();
   install_timer();
   srand(time(NULL));
+  */
 }
 
 AllegroLayer::~AllegroLayer() {
@@ -41,3 +45,35 @@ AllegroLayer::~AllegroLayer() {
   remove_sound();
   allegro_exit();
 }
+
+// controls
+bool AllegroLayer::keyESC() {
+  if (key[KEY_ESC]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyUp() {
+  if (key[KEY_UP]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyDown() {
+  if (key[KEY_DOWN]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyLeft() {
+  if (key[KEY_LEFT]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyRight() {
+  if (key[KEY_RIGHT]) return true;
+  return false;
+}
+
+bool AllegroLayer::keySpace() {
+  if (key[KEY_SPACE]) return true;
+  return false;
+}
+

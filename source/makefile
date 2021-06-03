@@ -74,7 +74,7 @@ grabframe.o: grabframe.cpp grabframe.h
 poweruphandler.o: poweruphandler.cpp poweruphandler.h
 	g++ -c -o poweruphandler.o poweruphandler.cpp -lalleg -Wall
 	
-main.o: config.o sprite.o playersprite.o bulletsprite.o bullethandler.o crawlersprite.o centipede.o mappyal.o boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o
+main.o: $(DEPS)
 
 clean:
 	\rm -f *.o

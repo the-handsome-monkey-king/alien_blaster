@@ -16,8 +16,18 @@
 
 class AllegroLayer {
   public:
+    // constructors
+    AllegroLayer();
     AllegroLayer(Config *config, const int screen_width, const int screen_height);
     ~AllegroLayer();
+
+    // controls
+    bool keyESC();
+    bool keyUp();
+    bool keyDown();
+    bool keyLeft();
+    bool keyRight();
+    bool keySpace();
 
 };
 
