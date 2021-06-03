@@ -75,7 +75,8 @@ class AlienBlaster {
 
     void runWrapper();
     void run();
-    bool isPlayerQuitGame();
+    bool didPlayerQuitGame();
+    bool didPlayerAskForHelp();
 };
 
 /********************************************

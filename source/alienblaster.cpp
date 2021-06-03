@@ -1003,7 +1003,7 @@ void resolvePowerupCollision(playersprite *player,
 void AlienBlaster::runWrapper()
       
 {
-  while(isPlayerQuitGame() == false)
+  while(didPlayerQuitGame() == false)
 	{
 		run();
 	}
@@ -1217,7 +1217,7 @@ void AlienBlaster::run()
 	// music toggle
 	bool musicOn = true;
 	
-	while(isPlayerQuitGame() == false)
+	while(didPlayerQuitGame() == false)
 	{
 		clear(buffer);
 		
@@ -1228,12 +1228,12 @@ void AlienBlaster::run()
 			stop_sample(soundtrack);
 			
 			// wait for player to press enter
-			while(!key[KEY_ENTER])
+			while(allegro.keyEnter() == false)
 			{
 				// wait
 				
 				// ESC always exits
-				if(key[KEY_ESC])
+				if(didPlayerQuitGame())
 					exit(0);
 			}
 			
@@ -1248,12 +1248,12 @@ void AlienBlaster::run()
 			stop_sample(soundtrack);
 			
 			// wait for player to press enter
-			while(!key[KEY_ENTER])
+			while(allegro.keyEnter() == false)
 			{
 				// wait
 				
 				// ESC always exits
-				if(key[KEY_ESC])
+				if(didPlayerQuitGame())
 					exit(0);
 			}
 			
@@ -1263,19 +1263,19 @@ void AlienBlaster::run()
 			
 		
 		// listen for instructions request
-		if((key[KEY_LCONTROL] || key[KEY_RCONTROL]) && key[KEY_H])
+    if(didPlayerAskForHelp())
 		{			
 			
 			render(helpScreen);
 			voice_stop(musicVoice);
 			
 			// wait for player to press enter
-			while(!key[KEY_ENTER])
+			while(allegro.keyEnter() == false)
 			{
 				// wait
 				
 				// ESC always exits
-				if(key[KEY_ESC])
+				if(didPlayerQuitGame())
 					exit(0);
 			}
 			
@@ -1294,7 +1294,7 @@ void AlienBlaster::run()
 		moved = false;
 		
 		// listen for music toggle
-		if((key[KEY_LCONTROL] || key[KEY_RCONTROL]) && key[KEY_M])
+    if(allegro.keyControl() && allegro.keyM())
 		{
 			if(musicOn)
 			{
@@ -1350,7 +1350,7 @@ void AlienBlaster::run()
 		
 		else if(reloadTimer == 0)
 		{
-			if(key[KEY_SPACE])
+			if(allegro.keySpace())
 			{
 				fire(playerPointer, bulletsPointer);
 				reloadTimer = RELOAD_TIME;
@@ -1586,9 +1586,12 @@ void AlienBlaster::run()
 }
 
 // Has the player requested to quit the game?
-bool AlienBlaster::isPlayerQuitGame() {
+bool AlienBlaster::didPlayerQuitGame() {
   return allegro.keyESC();
 }
-	
-	
-	
+
+// has player requested help screen
+bool AlienBlaster::didPlayerAskForHelp() {
+  if (allegro.keyControl() && allegro.keyH()) return true;
+  return false;
+}

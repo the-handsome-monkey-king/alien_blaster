@@ -77,3 +77,42 @@ bool AllegroLayer::keySpace() {
   return false;
 }
 
+
+bool AllegroLayer::keyEnter(){
+  if (key[KEY_ENTER]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyOne(){
+  if (key[KEY_1]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyTwo(){
+  if (key[KEY_2]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyThree(){
+  if (key[KEY_3]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyControl() {
+  return (key[KEY_LCONTROL] || key[KEY_RCONTROL]);
+}
+
+bool AllegroLayer::keyM(){
+  if (key[KEY_M]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyP(){
+  if (key[KEY_P]) return true;
+  return false;
+}
+
+bool AllegroLayer::keyH(){
+  if (key[KEY_H]) return true;
+  return false;
+}

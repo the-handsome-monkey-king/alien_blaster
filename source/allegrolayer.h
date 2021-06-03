@@ -28,6 +28,14 @@ class AllegroLayer {
     bool keyLeft();
     bool keyRight();
     bool keySpace();
+    bool keyEnter();
+    bool keyOne();
+    bool keyTwo();
+    bool keyThree();
+    bool keyControl();
+    bool keyM();
+    bool keyP();
+    bool keyH();
 
 };
 
