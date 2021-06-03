@@ -1217,7 +1217,7 @@ void AlienBlaster::run()
 	// music toggle
 	bool musicOn = true;
 	
-	while(!key[KEY_ESC]) 
+	while(isPlayerQuitGame() == false)
 	{
 		clear(buffer);
 		
