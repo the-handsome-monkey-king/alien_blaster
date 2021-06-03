@@ -1003,8 +1003,7 @@ void resolvePowerupCollision(playersprite *player,
 void AlienBlaster::runWrapper()
       
 {
-  while(allegro.keyESC() == false)
-  //while(!key[KEY_ESC]) 
+  while(isPlayerQuitGame() == false)
 	{
 		run();
 	}
@@ -1585,7 +1584,11 @@ void AlienBlaster::run()
 	destroy_sample(playerHurtSound);
 	MapFreeMem();
 }
-	
+
+// Has the player requested to quit the game?
+bool AlienBlaster::isPlayerQuitGame() {
+  return allegro.keyESC();
+}
 	
 	
 	
