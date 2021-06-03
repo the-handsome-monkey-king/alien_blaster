@@ -73,138 +73,140 @@ class AlienBlaster {
     AlienBlaster(Config *config);
     ~AlienBlaster();
 
+    // new methods created for class
     void runWrapper();
     void run();
     bool didPlayerQuitGame();
     bool didPlayerAskForHelp();
+
+    // LEGACY METHODS FORCED INTO CLASS DURING REFACTORING
+    /********************************************
+    *
+    * DISPLAY
+    *
+    ********************************************/
+
+    // print a buffer to the screen
+    void render(BITMAP *buffer);
+
+    // load display buffer
+    void drawSprites(BITMAP *buffer, playersprite *player,
+      bullethandler *bullets, poweruphandler *powerups,
+      vector<crawlersprite*> *crawlers, 
+      vector<centipede*> *centipedes, vector<boss*> *bosses);
+
+    void drawGauges(BITMAP *buffer, BITMAP *gauge, BITMAP *healthIcon,
+      BITMAP *flameIcon, BITMAP *bazookaIcon,
+      playersprite *player);
+
+    void displayScreenCard(BITMAP *titleScreen);
+
+    void displayInstructions(BITMAP *instructionsScreen);
+
+    void displayWin(BITMAP *winScreen);
+
+    void displayLose(BITMAP *loseScreen);
+    /********************************************
+    *
+    * MAP FOREGROUND COLLISION DETECTION
+    *
+    ********************************************/
+
+    // test for any collision in a mappy level map
+    int mapCollision(int x, int y);
+
+    // test for collision given a sprite in a mappy level map
+    int spriteMapCollision(sprite* s, int yoffset);
+
+    /******************************************
+    *
+    * PLAYER MOVEMENT, MAP SCROLLING, FIRE WEAPONS 
+    *
+    *******************************************/
+
+    // returns true if player moved & handles weapons fire
+    bool playerInput(playersprite *player);
+
+    // processes player movement w/ map collision resolution
+    void movePlayer(playersprite *player, int mapyoffset);
+
+    // fire weapons
+    void fire(playersprite *player, bullethandler *bullets);
+
+    /******************************************
+    *
+    * ENEMIES SPAWNERS
+    *
+    *******************************************/
+
+    void spawnCrawler(vector<crawlersprite*> *crawlers,
+      string crawlerFile, playersprite *player);
+
+    void spawnCentipede(vector<centipede*> *centipedes, 
+      string centipedeFile, playersprite *player);
+
+    void spawnBoss(vector<boss*> *bosses,
+      string bossFile, playersprite *player);
+
+    /****************************************
+    *
+    * ENEMY MOVEMENT & SPRITE SCROLLING
+    *
+    ******************************************/
+
+    void moveCrawlers(vector<crawlersprite*> *crawlers,
+      int scroll, int mapyoffset);
+
+    void moveCentipedes(vector<centipede*> *centipedes,
+      int scroll, int mapyoffset);
+
+    void moveBosses(vector<boss*> *bosses, playersprite *player, int scroll, int mapyoffset);
+
+    void movePowerups(poweruphandler *powerups, int scroll);
+
+    /******************************************
+    *
+    * BULLET COLLISIONS AND RESOLUTION
+    *
+    ******************************************/
+
+    void resolveBulletCollisions(
+      bullethandler *bullets, int maxBullets,
+      vector<crawlersprite*> *crawlers,
+      vector<centipede*> *centipedes,
+      vector<boss*> *bosses,
+      poweruphandler *powerups, int mapyoffset);
+
+
+    /****************************************
+    * 
+    * ENEMY COLLISIONS & PLAYER HEALTH
+    *
+    ***************************************/
+
+    void resolveEnemyCollision(playersprite *player, SAMPLE *hurtSound,
+      vector<crawlersprite*> *crawlers,
+      vector<centipede*> *centipedes,
+      vector<boss*> *bosses);
+
+    /*****************************************
+    *
+    * POWERUPS COLLISION & RESOLUTION
+    *
+    ******************************************/
+
+    void spawnHealth(poweruphandler *powerups, int mapyoffset);
+
+    void spawnFlame(poweruphandler *powerups, int mapyoffset);
+
+    void spawnBazooka(poweruphandler *powerups, int mapyoffset);
+
+    void spawnRandomPowerup(poweruphandler *powerups, int mapyoffset);
+
+    void resolvePowerupCollision(playersprite *player,
+      poweruphandler *powerups);
+
+
 };
-
-/********************************************
-*
-* DISPLAY
-*
-********************************************/
-
-// print a buffer to the screen
-void render(BITMAP *buffer);
-
-// load display buffer
-void drawSprites(BITMAP *buffer, playersprite *player,
-	bullethandler *bullets, poweruphandler *powerups,
-	vector<crawlersprite*> *crawlers, 
-	vector<centipede*> *centipedes, vector<boss*> *bosses);
-
-void drawGauges(BITMAP *buffer, BITMAP *gauge, BITMAP *healthIcon,
-	BITMAP *flameIcon, BITMAP *bazookaIcon,
-	playersprite *player);
-
-void displayScreenCard(BITMAP *titleScreen);
-
-void displayInstructions(BITMAP *instructionsScreen);
-
-void displayWin(BITMAP *winScreen);
-
-void displayLose(BITMAP *loseScreen);
-
-/********************************************
-*
-* MAP FOREGROUND COLLISION DETECTION
-*
-********************************************/
-
-// test for any collision in a mappy level map
-int mapCollision(int x, int y);
-
-// test for collision given a sprite in a mappy level map
-int spriteMapCollision(sprite* s, int yoffset);
-
-/******************************************
-*
-* PLAYER MOVEMENT, MAP SCROLLING, FIRE WEAPONS 
-*
-*******************************************/
-
-// returns true if player moved & handles weapons fire
-bool playerInput(playersprite *player);
-
-// processes player movement w/ map collision resolution
-void movePlayer(playersprite *player, int mapyoffset);
-
-// fire weapons
-void fire(playersprite *player, bullethandler *bullets);
-
-/******************************************
-*
-* ENEMIES SPAWNERS
-*
-*******************************************/
-
-void spawnCrawler(vector<crawlersprite*> *crawlers,
-	string crawlerFile, playersprite *player);
-
-void spawnCentipede(vector<centipede*> *centipedes, 
-	string centipedeFile, playersprite *player);
-
-void spawnBoss(vector<boss*> *bosses,
-	string bossFile, playersprite *player);
-
-/****************************************
-*
-* ENEMY MOVEMENT & SPRITE SCROLLING
-*
-******************************************/
-
-void moveCrawlers(vector<crawlersprite*> *crawlers,
-	int scroll, int mapyoffset);
-
-void moveCentipedes(vector<centipede*> *centipedes,
-	int scroll, int mapyoffset);
-
-void moveBosses(vector<boss*> *bosses,
-	int scroll, int mapyoffset);
-
-void movePowerups(poweruphandler *powerups, int scroll);
-
-/******************************************
-*
-* BULLET COLLISIONS AND RESOLUTION
-*
-******************************************/
-
-void resolveBulletCollisions(
-	bullethandler *bullets, int maxBullets,
-	vector<crawlersprite*> *crawlers,
-	vector<centipede*> *centipedes,
-	vector<boss*> *bosses,
-	poweruphandler *powerups, int mapyoffset);
-
-
-/****************************************
-* 
-* ENEMY COLLISIONS & PLAYER HEALTH
-*
-***************************************/
-
-void resolveEnemyCollision(playersprite *player, SAMPLE *hurtSound,
-	vector<crawlersprite*> *crawlers,
-	vector<centipede*> *centipedes,
-	vector<boss*> *bosses);
-
-/*****************************************
-*
-* POWERUPS COLLISION & RESOLUTION
-*
-******************************************/
-
-void spawnHealth(poweruphandler *powerups, int mapyoffset);
-
-void spawnFlame(poweruphandler *powerups, int mapyoffset);
-
-void spawnBazooka(poweruphandler *powerups, int mapyoffset);
-
-void spawnRandomPowerup(poweruphandler *powerups, int mapyoffset);
-
-void resolvePowerupCollision(playersprite *player,
-	vector<powerup*> *powerups);
 
 #endif

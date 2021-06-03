@@ -74,14 +74,14 @@ AlienBlaster::~AlienBlaster() {
 *
 ********************************************/
 
-void render(BITMAP *buffer) 
+void AlienBlaster::render(BITMAP *buffer) 
 {
 	acquire_screen();
 	blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 	release_screen();
 }
 
-void drawSprites(BITMAP *buffer, playersprite *player,
+void AlienBlaster::drawSprites(BITMAP *buffer, playersprite *player,
 	bullethandler *bullets, poweruphandler *powerups, 
 	vector<crawlersprite*> *crawlers, 
 	vector<centipede*> *centipedes, vector<boss*> *bosses)
@@ -120,7 +120,7 @@ void drawSprites(BITMAP *buffer, playersprite *player,
 	}
 }
 
-void drawGauges(BITMAP *buffer, BITMAP *gauge, BITMAP *healthIcon,
+void AlienBlaster::drawGauges(BITMAP *buffer, BITMAP *gauge, BITMAP *healthIcon,
 	BITMAP *flameIcon, BITMAP *bazookaIcon,
 	playersprite *player) 
 {
@@ -206,7 +206,7 @@ void drawGauges(BITMAP *buffer, BITMAP *gauge, BITMAP *healthIcon,
 	}
 }
 
-void displayScreenCard(BITMAP *titleScreen) 
+void AlienBlaster::displayScreenCard(BITMAP *titleScreen) 
 {
 	render(titleScreen);
 	
@@ -244,13 +244,13 @@ void displayScreenCard(BITMAP *titleScreen)
 *
 ********************************************/
 
-int mapCollision(int x, int y) {
+int AlienBlaster::mapCollision(int x, int y) {
 	BLKSTR *blockdata;
 	blockdata = MapGetBlock(x/mapblockwidth, y/mapblockheight);
 	return blockdata->tl;
 }
 
-int spriteMapCollision(sprite* s, int yoffset) {
+int AlienBlaster::spriteMapCollision(sprite* s, int yoffset) {
 	int spriteX = s->getX();
 	int spriteY = s->getY() + yoffset;
 	int spriteW = s->getWidth();
@@ -277,7 +277,7 @@ int spriteMapCollision(sprite* s, int yoffset) {
 *******************************************/
 
 // returns true if player moved
-bool playerInput(playersprite *player)
+bool AlienBlaster::playerInput(playersprite *player)
 {
 	// process player weapon input
 	if(key[KEY_1])
@@ -337,7 +337,7 @@ bool playerInput(playersprite *player)
 }
 
 // move the player w/ map collision resolution
-void movePlayer(playersprite *player, int mapyoffset)
+void AlienBlaster::movePlayer(playersprite *player, int mapyoffset)
 {
 	int oldX = player->getX();
 	int oldY = player->getY();
@@ -365,7 +365,7 @@ void movePlayer(playersprite *player, int mapyoffset)
 }
 
 // fire weapons
-void fire(playersprite *player, bullethandler *bullets)
+void AlienBlaster::fire(playersprite *player, bullethandler *bullets)
 {
 	// check weapon
 	int weapon = player->getWeapon();
@@ -410,7 +410,7 @@ void fire(playersprite *player, bullethandler *bullets)
 *
 *******************************************/
 
-void spawnCrawler(
+void AlienBlaster::spawnCrawler(
 	vector<crawlersprite*> *crawlers, 
 	string crawlerFile, playersprite *player)
 {
@@ -435,7 +435,7 @@ void spawnCrawler(
 	crawlers->back()->makeAlive();
 }
 
-void spawnCentipede(vector<centipede*> *centipedes, 
+void AlienBlaster::spawnCentipede(vector<centipede*> *centipedes, 
 	string centipedeFile, playersprite *player)
 {
 	// make a new sprite
@@ -458,7 +458,7 @@ void spawnCentipede(vector<centipede*> *centipedes,
 	centipedes->back()->makeAlive();
 }
 
-void spawnBoss(vector<boss*> *bosses,
+void AlienBlaster::spawnBoss(vector<boss*> *bosses,
 	string bossFile, playersprite *player)
 {
 	bosses->push_back(new boss(bossFile.c_str(), 137, 86, 2));
@@ -484,7 +484,7 @@ void spawnBoss(vector<boss*> *bosses,
 *
 ******************************************/
 
-void moveCrawlers(vector<crawlersprite*> *crawlers,
+void AlienBlaster::moveCrawlers(vector<crawlersprite*> *crawlers,
 	int scroll, int mapyoffset)
 {
 	int unsigned i;
@@ -517,7 +517,7 @@ void moveCrawlers(vector<crawlersprite*> *crawlers,
 	}
 }
 
-void moveCentipedes(vector<centipede*> *centipedes,
+void AlienBlaster::moveCentipedes(vector<centipede*> *centipedes,
 	int scroll, int mapyoffset)
 {
 	unsigned int i, j;
@@ -555,7 +555,7 @@ void moveCentipedes(vector<centipede*> *centipedes,
 	}
 }
 
-void moveBosses(vector<boss*> *bosses, playersprite *player, int scroll, int mapyoffset)
+void AlienBlaster::moveBosses(vector<boss*> *bosses, playersprite *player, int scroll, int mapyoffset)
 {
 	if(!bosses->empty())
 	{
@@ -599,7 +599,7 @@ void moveBosses(vector<boss*> *bosses, playersprite *player, int scroll, int map
 	}
 }
 
-void movePowerups(poweruphandler *powerups, int scroll)
+void AlienBlaster::movePowerups(poweruphandler *powerups, int scroll)
 {
 	int i;
 	
@@ -628,7 +628,7 @@ void movePowerups(poweruphandler *powerups, int scroll)
 *
 ******************************************/
 
-void resolveBulletCollisions(
+void AlienBlaster::resolveBulletCollisions(
 	bullethandler *bullets, int maxBullets,
 	vector<crawlersprite*> *crawlers,
 	vector<centipede*> *centipedes,
@@ -797,7 +797,7 @@ void resolveBulletCollisions(
 *
 ***************************************/
 
-void resolveEnemyCollision(playersprite *player, SAMPLE *hurtSound,
+void AlienBlaster::resolveEnemyCollision(playersprite *player, SAMPLE *hurtSound,
 	vector<crawlersprite*> *crawlers,
 	vector<centipede*> *centipedes,
 	vector<boss*> *bosses)
@@ -885,7 +885,7 @@ void resolveEnemyCollision(playersprite *player, SAMPLE *hurtSound,
 *
 ******************************************/
 
-void spawnHealth(poweruphandler *powerups, int mapyoffset)
+void AlienBlaster::spawnHealth(poweruphandler *powerups, int mapyoffset)
 {
 	powerups->add(0, 
 		rand() % SCREEN_W, 
@@ -901,7 +901,7 @@ void spawnHealth(poweruphandler *powerups, int mapyoffset)
 			
 }
 
-void spawnFlame(poweruphandler *powerups, int mapyoffset)
+void AlienBlaster::spawnFlame(poweruphandler *powerups, int mapyoffset)
 {
 	powerups->add(1, 
 		rand() % SCREEN_W, 
@@ -916,7 +916,7 @@ void spawnFlame(poweruphandler *powerups, int mapyoffset)
 	}
 }
 
-void spawnBazooka(poweruphandler *powerups, int mapyoffset)
+void AlienBlaster::spawnBazooka(poweruphandler *powerups, int mapyoffset)
 {
 	powerups->add(2, 
 		rand() % SCREEN_W, 
@@ -931,7 +931,7 @@ void spawnBazooka(poweruphandler *powerups, int mapyoffset)
 	}
 }
 
-void spawnRandomPowerup(poweruphandler *powerups, int mapyoffset) 
+void AlienBlaster::spawnRandomPowerup(poweruphandler *powerups, int mapyoffset) 
 {
 	int randomType = (rand() % 4) -1;
 	switch(randomType) {
@@ -947,8 +947,9 @@ void spawnRandomPowerup(poweruphandler *powerups, int mapyoffset)
 	}
 }
 
-void resolvePowerupCollision(playersprite *player,
-	poweruphandler *powerups)
+void AlienBlaster::resolvePowerupCollision(
+    playersprite *player,
+	  poweruphandler *powerups)
 {
 	int i;
 	
