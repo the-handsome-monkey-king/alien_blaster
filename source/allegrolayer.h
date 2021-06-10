@@ -12,9 +12,22 @@
 #define ALLEGROLAYER_H
 
 #include <allegro.h>
+#include <map>
+#include <string>
+#include <vector>
 #include "config.h"
 
 class AllegroLayer {
+  private:
+    // library of BITMAP type sprite images
+    std::map<std::string, std::vector<BITMAP*>> sprite_images;
+
+    // this function was written by Jonathan S. Harbour, from the book
+    // Game Programming All-in-One.
+    BITMAP *grabframe(
+        BITMAP *source, int width, int height, 
+        int startx, int starty, int columns, int frame);
+
   public:
     // constructors
     AllegroLayer();
@@ -36,6 +49,13 @@ class AllegroLayer {
     bool keyM();
     bool keyP();
     bool keyH();
+
+    // sprite images
+    void registerSpriteImage(std::string name, std::string image_file);
+    void registerSpriteSheet(std::string name, std::string image_file,
+        int width, int height, int startx, int starty,
+        int columns, int frame);
+
 
 };
 

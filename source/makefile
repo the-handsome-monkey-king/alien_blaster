@@ -14,10 +14,10 @@
 #
 # make clean: remove all object files
 
-DEPS = allegrolayer.o config.o allegrolayer.o mappyal.o sprite.o playersprite.o \
+DEPS = allegrospriteimage.o allegrolayer.o config.o allegrolayer.o mappyal.o \
+sprite.o playersprite.o \
 bulletsprite.o bullethandler.o crawlersprite.o centipede.o \
 boss.o powerup.o alienblaster.o grabframe.o poweruphandler.o
-
 OBJECTS = $(DEPS) main.o 
 FLAGS = -Wall -lalleg 
 NOMAPPYWARNFLAGS = -Wno-pointer-to-int-cast -Wno-unused-but-set-variable -Wno-deprecated-declarations -Wno-pointer-sign -Wno-int-conversion -Wno-parentheses
@@ -38,10 +38,13 @@ mappyal.o: mappyal.c
 allegrolayer.o: allegrolayer.cpp
 	g++ -c -o allegrolayer.o allegrolayer.cpp -Wall
 
+allegrospriteimage.o: allegrospriteimage.cpp
+	g++ -c -o allegrospriteimage.o allegrospriteimage.cpp -Wall
+
 config.o: config.cpp
 	g++ -c -o config.o config.cpp -Wall
 	
-sprite.o: sprite.cpp sprite.h
+sprite.o: sprite.cpp sprite.h allegrospriteimage.o
 	g++ -c -o sprite.o sprite.cpp -lalleg -Wall
 	
 playersprite.o: playersprite.cpp playersprite.h

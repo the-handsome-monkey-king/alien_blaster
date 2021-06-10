@@ -116,3 +116,45 @@ bool AllegroLayer::keyH(){
   if (key[KEY_H]) return true;
   return false;
 }
+
+
+
+/*************************
+
+  SPRITE IMAGES
+
+**************************/
+BITMAP* AllegroLayer::grabframe(
+    BITMAP *source, int width, int height, 
+    int startx, int starty, int columns, int frame)
+{
+	BITMAP *temp = create_bitmap(width, height);
+	int x = startx + (frame % columns) * width;
+	int y = starty + (frame / columns) * height;
+	blit(source, temp, x, y, 0, 0, width, height);
+	return temp;
+}
+
+void AllegroLayer::registerSpriteImage(
+    std::string name, std::string image_file)
+{
+  BITMAP *bm = load_bitmap(image_file.c_str(), NULL);
+  std::vector<BITMAP*> v;
+  v.push_back(bm);
+  sprite_images[name] = v;
+}
+
+void AllegroLayer::registerSpriteSheet(
+    std::string name, std::string image_file,
+    int width, int height, int startx, int starty,
+    int columns, int total_frames)
+{
+  std::vector<BITMAP*> v;
+
+  BITMAP *sheet = load_bitmap(image_file.c_str(), NULL);
+  for(int i = 0; i < total_frames; i++) {
+    v.push_back(grabframe(sheet, width, height, startx, starty, columns, i));
+  }
+
+  sprite_images[name] = v;
+}
