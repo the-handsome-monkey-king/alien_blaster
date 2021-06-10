@@ -84,6 +84,14 @@ int sprite::getCountY() {
 	return ycount;
 }
 
+std::string sprite::getURL() {
+  return url;
+}
+
+AllegroSpriteImage sprite::getImage() {
+  return image;
+}
+
 
 /*******************************************************
  *
@@ -137,6 +145,18 @@ void sprite::setCountX(int newCount) {
 
 void sprite::setCountY(int newCount) {
 	ycount = newCount;
+}
+
+// requires width and height to be set
+// to be modified to this requirement
+// is always already met
+void sprite::setImage(std::string url) {
+  image = AllegroSpriteImage(url);
+}
+
+void sprite::setImage(std::string url,
+    int startx, int starty, int columns, int total_frames) {
+  image = AllegroSpriteImage(url, width, height, startx, starty, columns, total_frames);
 }
 
 

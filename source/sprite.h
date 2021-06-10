@@ -18,6 +18,8 @@
 #define SPRITE_H
 
 #include <allegro.h>
+#include <string>
+#include "allegrospriteimage.h"
 
 class sprite {
 private:
@@ -27,9 +29,12 @@ private:
 	int xVelocity, yVelocity;
 	int xdelay, ydelay;
 	int xcount, ycount;
+  std::string url;
+  AllegroSpriteImage image;
+
 	
 public:
-	sprite();
+  sprite();
 	~sprite();
 	
 	// accessors
@@ -44,6 +49,8 @@ public:
 	int getDelayY();
 	int getCountX();
 	int getCountY();
+  std::string getURL();
+  AllegroSpriteImage getImage();
 	
 	
 	// setters
@@ -59,6 +66,9 @@ public:
 	void setDelayY(int newDelay);
 	void setCountX(int newCount);
 	void setCountY(int newCount);
+  void setImage(std::string url);
+  void setImage(std::string url, 
+      int startx, int starty, int columns, int total_frames);
 	
 	// behaviour
 	void updatePosition();
